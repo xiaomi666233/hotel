@@ -1,0 +1,174 @@
+/* 按钮 */
+html body {
+  height: 100%;
+  width: 100%;
+}
+
+.lz-btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.lz-btn {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.lz-btn-default {
+  background-color: #fff;
+  color: #515a6e;
+}
+
+.lz-btn-default:active {
+  color: #515a6e;
+  border-color: #2e60eb;
+}
+
+.lz-btn-primary {
+  background-color: #515a6e;
+  color: #fff;
+}
+
+.lz-btn-primary:active {
+  background-color: #0F3B99;
+}
+
+
+/* 布局 */
+
+.lz-col-1 {
+  flex: 1;
+}
+
+.lz-col-2 {
+  flex: 2;
+}
+
+.lz-main {
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 10px;
+  margin: 0 10px 0 10px;
+  height: 100%;
+}
+
+
+/* 表单 */
+
+.lz-form {
+  margin-bottom: 5px;
+}
+
+.lz-form-row {
+  display: flex;
+}
+
+.lz-form-item {
+  display: inline-block;
+  height: 50px;
+}
+
+.lz-form-item-label {
+  display: inline-block !important;
+  display: inline;
+  font-size: 13px;
+  margin: 4.5px 8px;
+  margin-right: 0px;
+}
+
+.lz-form-item-input {
+  width: calc(100% - 70px);
+  -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: inherit;
+  height: 30px;
+  line-height: 30px;
+  outline: 0;
+  padding: 0 10px;
+  transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+  float: right;
+}
+
+.lz-form-item-input:focus {
+  border-color: #2e60eb;
+}
+
+.lz-form-item-help {
+  font-size: 10px;
+  color: #ef4b4b;
+  margin-left: 75px;
+}
+
+.lz-form-head {
+  display: inline-block !important;
+  display: inline;
+  margin: 5px 15px 20px 0;
+  padding: 7px 15px;
+  background-color: #515a6e;
+  color: #fff;
+  text-align: center;
+}
+
+.lz-form-clear {
+  margin: 10px 0 30px 0;
+}
+
+.lz-form-clear button {
+  height: 25px;
+  line-height: 23px;
+  background-color: #fff;
+  color: #2e60eb;
+  border: 1px solid #2e60eb;
+  padding: 0 10px;
+}
+
+.lz-form-clear button:hover {
+  color: #515a6e;
+}
+
+.lz-form-clear button:active {
+  background-color: #515a6e;
+  color: #fff;
+}
+
+.lz-table-input {
+  width: 100%;
+  -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  border: none;
+  box-sizing: border-box;
+  color: #515a6e;
+  display: inline-block;
+  font-size: inherit;
+  height: 30px;
+  line-height: 30px;
+  outline: 0;
+  padding: 0 10px;
+  transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+}
