@@ -26,7 +26,7 @@
           <FormItem label="预约时间">
             <Input></Input>
           </FormItem>
-          <FormItem label="预离时间">
+          <FormItem label="居住天数">
             <Input></Input>
           </FormItem>
         </Form>
@@ -63,11 +63,6 @@
           <Radio label="S208"></Radio>
           <Radio label="S209"></Radio>
           <Radio label="S210"></Radio>
-          <Radio label="S211"></Radio>
-          <Radio label="S212"></Radio>
-          <Radio label="S213"></Radio>
-          <Radio label="S214"></Radio>
-          <Radio label="S215"></Radio>
         </div>
         <div class="baoliu-item">
           <Tag checkable color="primary">双人房</Tag>
@@ -81,11 +76,6 @@
           <Radio label="D308"></Radio>
           <Radio label="D309"></Radio>
           <Radio label="D310"></Radio>
-          <Radio label="D311"></Radio>
-          <Radio label="D312"></Radio>
-          <Radio label="D313"></Radio>
-          <Radio label="D314"></Radio>
-          <Radio label="D315"></Radio>
         </div>
         <div class="baoliu-item">
           <Tag checkable color="warning">家庭套房</Tag>
@@ -99,11 +89,6 @@
           <Radio label="F408"></Radio>
           <Radio label="F409"></Radio>
           <Radio label="F410"></Radio>
-          <Radio label="F411"></Radio>
-          <Radio label="F412"></Radio>
-          <Radio label="F413"></Radio>
-          <Radio label="F414"></Radio>
-          <Radio label="F415"></Radio>
         </div>
       </RadioGroup>
     </div>
