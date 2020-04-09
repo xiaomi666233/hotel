@@ -46,11 +46,18 @@ export default {
           title: "手机号码",
           key: "phone"
         },
-
         {
           title: "预约时间",
           key: "btime"
         },
+        {
+          title: "预离时间",
+          key: "ylsj"
+        },
+        {
+          title: "订单总价格",
+          key: "ddzjg"
+         },
         {
           title: "已入住",
           key: "is_use"

@@ -24,6 +24,10 @@ export default {
           key: "orderNum"
         },
         {
+          title: "客人名称",
+          key: "krmc"
+        },
+        {
           title: "手机号码",
           key: "phone"
         },
@@ -33,8 +37,8 @@ export default {
           key: "btime"
         },
         {
-          title: "已入住",
-          key: "is_use"
+          title: "预离时间",
+          key: "ylsj"
         }
       ],
       data6: [
