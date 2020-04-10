@@ -7,6 +7,9 @@
         </template>
       </Table>
     </div>
+    <div class="page">
+      <Page :total="100" @on-change="selectMsg" />
+    </div>
   </div>
 </template>
 
@@ -51,6 +54,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    selectMsg(index) {
+      this.$Message.success("切换到 " + index + " 页");
+    }
   }
 };
 </script>
@@ -59,4 +67,5 @@ export default {
 .header {
   margin-bottom: 20px;
 }
+
 </style>

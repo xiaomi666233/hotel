@@ -5,52 +5,57 @@
       <div class="zhudan-item">
         <Form label-position="left" :label-width="100">
           <FormItem label="客人名称">
-            <Input></Input>
+            <Input v-model="list.name"></Input>
           </FormItem>
           <FormItem label="性别">
-            <Select>
-              <Option value>男</Option>
-              <Option value>女</Option>
+            <Select v-model="list.sex">
+              <Option value="0">男</Option>
+              <Option value="1">女</Option>
             </Select>
           </FormItem>
-          <FormItem label="手机号码">
-            <Input></Input>
+          <FormItem label="手机号码" prop="phone">
+            <Input v-model="list.phone"></Input>
           </FormItem>
         </Form>
       </div>
       <div class="zhudan-item">
         <Form label-position="left" :label-width="100">
           <FormItem label="证件号码">
-            <Input></Input>
+            <Input v-model="list.num"></Input>
           </FormItem>
           <FormItem label="预约时间">
-            <Input></Input>
+            <DatePicker
+              type="date"
+              v-model="list.datetime"
+              placeholder="选择预约时间"
+              style="width: 100%"
+            ></DatePicker>
           </FormItem>
           <FormItem label="居住天数">
-            <Input></Input>
+            <Input v-model="list.day"></Input>
           </FormItem>
         </Form>
       </div>
       <div class="zhudan-item">
         <Form label-position="left" :label-width="100">
           <FormItem label="订单类型">
-            <Select>
-              <Option value>预订单</Option>
-              <Option value>订单</Option>
+            <Select v-model="list.style">
+              <Option value="0">预订单</Option>
+              <Option value="1">订单</Option>
             </Select>
           </FormItem>
           <FormItem label="地区">
-            <Input></Input>
+            <Input v-model="list.place"></Input>
           </FormItem>
           <FormItem label="备注说明">
-            <Input></Input>
+            <Input v-model="list.msg"></Input>
           </FormItem>
         </Form>
       </div>
     </div>
     <Divider orientation="left">保留房间</Divider>
     <div>
-      <RadioGroup v-model="room" type="button">
+      <RadioGroup v-model="list.roomNum" type="button">
         <div class="baoliu-item">
           <Tag color="success">单人房</Tag>
           <Radio label="S201"></Radio>
@@ -93,7 +98,7 @@
       </RadioGroup>
     </div>
     <div class="yuding-btn">
-      <Button type="success">预定</Button>
+      <Button type="success" @click="handle()">预定</Button>
     </div>
   </div>
 </template>
@@ -102,8 +107,35 @@
 export default {
   data() {
     return {
-      room: ""
+      list: {
+        name: "",
+        sex: "",
+        phone: "",
+        datetime: "",
+        day: "",
+        num: "",
+        style: "",
+        place: "",
+        msg: "",
+        roomNum: ""
+      }
     };
+  },
+  methods: {
+    handle() {
+      for (let item in this.list) {
+        if (!this.list[item]) {
+          this.$Message.error("表单内容不能为空");
+          return;
+        }
+      }
+      this.book(this.list);
+    },
+    book(data) {
+      console.log(data);
+      Object.assign(this.$data, this.$options.data());
+      this.$Message.success("提交成功");
+    }
   }
 };
 </script>

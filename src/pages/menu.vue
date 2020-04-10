@@ -14,6 +14,9 @@
         </template>
       </Table>
     </div>
+    <div class="page">
+      <Page :total="100" @on-change="selectMsg" />
+    </div>
     <Modal title="修改" v-model="modify" class-name="vertical-center-modal">1</Modal>
   </div>
 </template>
@@ -59,6 +62,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    selectMsg(index) {
+      this.$Message.success("切换到 " + index + " 页");
+    }
   }
 };
 </script>

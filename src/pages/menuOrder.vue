@@ -5,7 +5,7 @@
       <Button type="success">搜索</Button>
     </div>
     <div>
-      <Table border :columns="columns1" :data="data6">
+      <Table border :columns="columns1" >
         <template slot-scope="{ row }" slot="name">
           <strong>{{ row.name }}</strong>
         </template>
@@ -13,6 +13,9 @@
           <Button type="primary" size="small" @click="modify = true">购买</Button>
         </template>
       </Table>
+    </div>
+    <div class="page">
+      <Page :total="100" @on-change="selectMsg" />
     </div>
     <Modal title="修改" v-model="modify" class-name="vertical-center-modal">1</Modal>
   </div>
@@ -54,6 +57,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    selectMsg(index) {
+      this.$Message.success("切换到 " + index + " 页");
+    }
   }
 };
 </script>

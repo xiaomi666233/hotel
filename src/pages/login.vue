@@ -15,7 +15,6 @@
                   autocomplete="off"
                   v-model="loginForm.account"
                 />
-                <span class="lz-form-item-help"></span>
               </div>
             </div>
           </FormItem>
@@ -29,7 +28,6 @@
                   autocomplete="off"
                   v-model="loginForm.password"
                 />
-                <span class="lz-form-item-help"></span>
               </div>
             </div>
           </FormItem>
@@ -162,5 +160,11 @@ export default {
   color: #515a6e;
   cursor: pointer;
   font-size: 15px;
+}
+.lz-form .ivu-form-item-error-tip {
+    top: 85%;
+    left: 75px;
+    line-height: 1;
+    padding-top: 0px;
 }
 </style>

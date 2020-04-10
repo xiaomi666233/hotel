@@ -13,12 +13,12 @@ Vue.use(Router)
 // 路由
 export default new Router({
   routes: [{
-      path: '/',
+      path: '/login',
       name: 'login',
       component: login
     },
     {
-      path: '/index',
+      path: '/',
       name: 'index',
       component: index,
       children: [{
