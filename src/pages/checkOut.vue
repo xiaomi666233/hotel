@@ -1,27 +1,29 @@
 <template>
   <div>
     <div>
-      <Table border :columns="columns1" :data="data6">
-        <template slot-scope="{ row }" slot="name">
-          <strong>{{ row.name }}</strong>
-        </template>
-      </Table>
+      <Table border :columns="columns1" :data="list"></Table>
+    </div>
+    <div class="page">
+      <Page :total="100" @on-change="selectMsg" />
     </div>
   </div>
 </template>
 
 <script>
+import { roomCheck } from "@/network/user.js";
 export default {
   data() {
     return {
       columns1: [
         {
           title: "房号",
-          key: "num"
+          key: "fh",
+          width: 80
         },
         {
           title: "订单号",
-          key: "orderNum"
+          key: "ddh",
+          width: 250
         },
         {
           title: "客人名称",
@@ -29,28 +31,47 @@ export default {
         },
         {
           title: "手机号码",
-          key: "phone"
+          key: "sjhm"
         },
 
         {
           title: "预约时间",
-          key: "btime"
+          key: "yysj"
         },
         {
           title: "预离时间",
           key: "ylsj"
         }
       ],
-      data6: [
-        {
-          num: 164,
-          orderNum: 2137123243,
-          phone: 159124352,
-          btime: "2020-01-29",
-          is_use: 1
-        }
-      ]
+      list: []
     };
+  },
+  created() {
+    this.getRoomCheck();
+  },
+  methods: {
+    minToymd(min) {
+      let date = new Date(min);
+      let y = date.getFullYear();
+      let m = date.getMonth();
+      let d = date.getDate();
+      return y + "-" + m + "-" + d;
+    },
+    selectMsg(index) {
+      this.$Message.success("切换到 " + index + " 页");
+    },
+    getRoomCheck() {
+      let that = this;
+      roomCheck().then(res => {
+        if (res.status === 200) {
+          that.list = res.data.response;
+          for(let i = 0;i< that.list.length;i++){
+            that.list[i].yysj = that.minToymd(that.list[i].yysj.time);
+            that.list[i].ylsj = that.minToymd(that.list[i].ylsj.time);
+          }
+        }
+      });
+    }
   }
 };
 </script>
