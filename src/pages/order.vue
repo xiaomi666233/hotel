@@ -9,8 +9,8 @@
           </FormItem>
           <FormItem label="性别">
             <Select v-model="list.sex">
-              <Option value="0">男</Option>
-              <Option value="1">女</Option>
+              <Option value="男">男</Option>
+              <Option value="女">女</Option>
             </Select>
           </FormItem>
           <FormItem label="手机号码" prop="phone">
@@ -25,7 +25,8 @@
           </FormItem>
           <FormItem label="预约时间">
             <DatePicker
-              type="date"
+              type="datetime"
+              @on-change="setDate"
               v-model="list.datetime"
               placeholder="选择预约时间"
               style="width: 100%"
@@ -40,8 +41,8 @@
         <Form label-position="left" :label-width="100">
           <FormItem label="订单类型">
             <Select v-model="list.style">
-              <Option value="0">预订单</Option>
-              <Option value="1">订单</Option>
+              <Option value="预订单">预订单</Option>
+              <Option value="订单">订单</Option>
             </Select>
           </FormItem>
           <FormItem label="地区">
@@ -58,42 +59,15 @@
       <RadioGroup v-model="list.roomNum" type="button">
         <div class="baoliu-item">
           <Tag color="success">单人房</Tag>
-          <Radio label="S201"></Radio>
-          <Radio label="S202"></Radio>
-          <Radio label="S203"></Radio>
-          <Radio label="S204"></Radio>
-          <Radio label="S205"></Radio>
-          <Radio label="S206"></Radio>
-          <Radio label="S207"></Radio>
-          <Radio label="S208"></Radio>
-          <Radio label="S209"></Radio>
-          <Radio label="S210"></Radio>
+          <Radio v-for="(item,index) in drfList" :key="index" :label="item.fh"></Radio>
         </div>
         <div class="baoliu-item">
           <Tag checkable color="primary">双人房</Tag>
-          <Radio label="D301"></Radio>
-          <Radio label="D302"></Radio>
-          <Radio label="D303"></Radio>
-          <Radio label="D304"></Radio>
-          <Radio label="D305"></Radio>
-          <Radio label="D306"></Radio>
-          <Radio label="D307"></Radio>
-          <Radio label="D308"></Radio>
-          <Radio label="D309"></Radio>
-          <Radio label="D310"></Radio>
+          <Radio v-for="(item,index) in srfList" :key="index" :label="item.fh"></Radio>
         </div>
         <div class="baoliu-item">
           <Tag checkable color="warning">家庭套房</Tag>
-          <Radio label="F401"></Radio>
-          <Radio label="F402"></Radio>
-          <Radio label="F403"></Radio>
-          <Radio label="F404"></Radio>
-          <Radio label="F405"></Radio>
-          <Radio label="F406"></Radio>
-          <Radio label="F407"></Radio>
-          <Radio label="F408"></Radio>
-          <Radio label="F409"></Radio>
-          <Radio label="F410"></Radio>
+          <Radio label="F401" v-for="(item,index) in jtfList" :key="index" :label="item.fh"></Radio>
         </div>
       </RadioGroup>
     </div>
@@ -104,6 +78,7 @@
 </template>
 
 <script>
+import { order, room } from "@/network/user.js";
 export default {
   data() {
     return {
@@ -112,16 +87,46 @@ export default {
         sex: "",
         phone: "",
         datetime: "",
-        day: "",
+        day: 0,
         num: "",
         style: "",
         place: "",
         msg: "",
         roomNum: ""
-      }
+      },
+      fList: [],
+      drfList: [],
+      srfList: [],
+      jtfList: []
     };
   },
+  created() {
+    this.getList();
+  },
   methods: {
+    getList() {
+      let that = this;
+      room().then(res => {
+        if (res.status === 200) {
+          for (let i = 0; i < res.data.length; i++) {
+            if (res.data[i].fjlx == "单人房" && res.data[i].fjzt == "空闲") {
+              that.drfList.push(res.data[i]);
+            } else if (
+              res.data[i].fjlx == "双人房" &&
+              res.data[i].fjzt == "空闲"
+            ) {
+              that.srfList.push(res.data[i]);
+            } else if (
+              res.data[i].fjlx == "家庭套房" &&
+              res.data[i].fjzt == "空闲"
+            ) {
+              that.jtfList.push(res.data[i]);
+            }
+          }
+        }
+        console.log(this.drfList);
+      });
+    },
     handle() {
       for (let item in this.list) {
         if (!this.list[item]) {
@@ -131,10 +136,34 @@ export default {
       }
       this.book(this.list);
     },
+    setDate(date) {
+      this.list.datetime = date;
+    },
     book(data) {
       console.log(data);
-      Object.assign(this.$data, this.$options.data());
-      this.$Message.success("提交成功");
+      let model = {
+        bz: data.name,
+        ddlx: data.style,
+        dq: data.place,
+        fh: data.roomNum,
+        fjlx: data.msg,
+        jzts: data.day,
+        krmc: data.name,
+        sjhm: data.phone,
+        xb: data.sex,
+        yysj: data.datetime,
+        zjhm: data.num
+      };
+      order(model).then(res => {
+        console.log(res.status);
+        if (res.status == 200) {
+          this.$Message.success("订房成功");
+          Object.assign(this.$data, this.$options.data());
+          this.getList();
+        } else {
+          this.$Message.error("订房失败");
+        }
+      });
     }
   }
 };
