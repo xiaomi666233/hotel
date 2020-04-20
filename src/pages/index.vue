@@ -6,7 +6,6 @@
           <Icon class="img" type="ios-contact" />
         </div>
         <Menu
-          active-name="1-2"
           theme="dark"
           width="auto"
           :open-names="['1']"
