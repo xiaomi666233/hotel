@@ -1,14 +1,14 @@
-import {request} from "./request";
+import { request } from "./request";
 
 export function login(account, password) {
   return request({
-    url: 'login',
-    method:"post",
-    data:{
+    url: "login",
+    method: "post",
+    data: {
       account,
       password
     }
-  })
+  });
 }
 
 /**
@@ -16,14 +16,14 @@ export function login(account, password) {
  */
 export function getUserPermission() {
   return request({
-    url: 'perms',
-    method:"get"
-  })
+    url: "perms",
+    method: "get"
+  });
 }
 
 export function logout() {
   return request({
-    url: 'user/logout',
-    method:"get"
-  })
+    url: "user/logout",
+    method: "get"
+  });
 }
