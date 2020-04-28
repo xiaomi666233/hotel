@@ -19,31 +19,32 @@ export function request(config) {
   // );
   // 1.创建axios实例
   const instance = axios.create({
-    baseURL: 'http://localhost:8088',
+    baseURL: "http://localhost:8088",
     timeout: 5000
-  })
-// 2.拦截器
-// 2.1请求拦截
+  });
+  // 2.拦截器
+  // 2.1请求拦截
   instance.interceptors.request.use(config => {
-    let accessToken = window.localStorage.getItem('accessToken')
+    let accessToken = window.localStorage.getItem("accessToken");
     //请求头携带token
     config.headers.accesstoken = accessToken;
-    return config
-  }), err => {
-    // console.log(err);
-    return Promise.reject(err);
-  }
+    return config;
+  }),
+    err => {
+      // console.log(err);
+      return Promise.reject(err);
+    };
 
-// 添加响应拦截器
+  // 添加响应拦截器
   instance.interceptors.response.use(
-    (response) => {
+    response => {
       // 对响应数据做点什么
       return response;
     },
-    (error) => {
-      return error.response
+    error => {
+      return error.response;
     }
   );
 
-  return instance(config)
+  return instance(config);
 }

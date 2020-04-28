@@ -37,9 +37,7 @@
                 type="button"
                 class="lz-btn lz-btn-primary"
                 v-on:click="handleLogin('loginForm')"
-              >
-                登录
-              </button>
+              >登录</button>
             </div>
           </FormItem>
         </Form>
@@ -49,47 +47,47 @@
 </template>
 
 <script>
-import {login} from '../network/login.js'
+import { login } from "../network/login.js";
 export default {
   data() {
     return {
-        loginForm:{
-            account: '',
-            password: ''
-        },
-        ruleInline: {
-            account: [
-                { required: true, message: '账号不能为空！', trigger: 'blur' }
-            ],
-            password: [
-                { required: true, message: '密码不能为空！', trigger: 'blur' }
-            ]
-        }
+      loginForm: {
+        account: "",
+        password: ""
+      },
+      ruleInline: {
+        account: [
+          { required: true, message: "账号不能为空！", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "密码不能为空！", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
     handleLogin(formName) {
-        this.$refs[formName].validate((valid) => {
-           if (valid) {
-               this.login(this.loginForm.account,this.loginForm.password);
-           }
-        });
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.login(this.loginForm.account, this.loginForm.password);
+        }
+      });
     },
-    login(account, password){
-        login(account, password).then(res => {
-            if(res.status === 200){
-                //如果登录成功
-                //提示登录成功信息
-                this.$Message.info("登陆成功！");
-                //将accessToken保存到sessionStorage
-                window.localStorage.setItem("accessToken", res.data.token);
-                console.log(window.localStorage.getItem('accessToken'));
-                this.$router.push('/index')
-            }else {
-                this.$Message.error("用户名不存在或密码错误！登陆失败！");
-            }
-        })
-     }
+    login(account, password) {
+      login(account, password).then(res => {
+        if (res.status === 200) {
+          //如果登录成功
+          //提示登录成功信息
+          this.$Message.info("登陆成功！");
+          //将accessToken保存到sessionStorage
+          window.localStorage.setItem("accessToken", res.data.token);
+          console.log(window.localStorage.getItem("accessToken"));
+          this.$router.push("/index");
+        } else {
+          this.$Message.error("用户名不存在或密码错误！登陆失败！");
+        }
+      });
+    }
   }
 };
 </script>
@@ -162,9 +160,9 @@ export default {
   font-size: 15px;
 }
 .lz-form .ivu-form-item-error-tip {
-    top: 85%;
-    left: 75px;
-    line-height: 1;
-    padding-top: 0px;
+  top: 85%;
+  left: 75px;
+  line-height: 1;
+  padding-top: 0px;
 }
 </style>
