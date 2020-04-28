@@ -14,7 +14,7 @@
             size="small"
             @click="confirm(row.roomOrderUuid)"
           >确认入住</Button>
-          <Button type="error" size="small" @click="okqxrz(row.roomOrderUuid)">取消入住</Button>
+          <Button type="error" size="small" @click="comokqxrz(row.roomOrderUuid)">取消入住</Button>
         </template>
       </Table>
     </div>
@@ -57,7 +57,7 @@
         </FormItem>
       </Form>
     </Modal>
-    <!-- <Modal
+    <Modal
       title="提示"
       v-model="confirmLive"
       class-name="vertical-center-modal"
@@ -68,7 +68,7 @@
       v-model="modifyLive"
       class-name="vertical-center-modal"
       @on-ok="okqxrz()"
-    >是否取消入住</Modal>-->
+    >是否取消入住</Modal>
   </div>
 </template>
 
@@ -89,6 +89,7 @@ export default {
       confirmLive: false,
       modifyLive: false,
       select: 0,
+      uuid: "",
       msg: {
         fh: "",
         ddh: "",
@@ -189,8 +190,12 @@ export default {
       // 发请求
       this.$Message.success("修改成功");
     },
-    okqxrz(id) {
-      roomOrderD(id).then(res => {
+    comokqxrz(uuid) {
+      this.modifyLive = true;
+      this.uuid = uuid;
+    },
+    okqxrz() {
+      roomOrderD(this.uuid).then(res => {
         if (res.status === 200) {
           this.getRoomOrderList();
           this.$Message.success("取消成功");

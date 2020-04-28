@@ -73,6 +73,14 @@ export function roomR(data) {
   });
 }
 
+// 退房
+export function roomtuifang(roomUuid) {
+  return request({
+    url: `/room/checkOut/${roomUuid}`,
+    method: "put"
+  });
+}
+
 // 超时
 export function roomCheck(pageNum, pageSize) {
   return request({
