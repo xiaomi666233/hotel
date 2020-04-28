@@ -34,7 +34,7 @@
                   <p class="drop-p" @click="clickxuzu(item.roomUuid)">续住</p>
                 </DropdownItem>
                 <DropdownItem v-if="item.fjzt == '在住' ? true : false">
-                  <p class="drop-p" @click="clicktuifang(index)">退房</p>
+                  <p class="drop-p" @click="clicktuifang(item.roomUuid)">退房</p>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -73,13 +73,19 @@
         <p>是否退房</p>
       </div>
       <div slot="footer">
-        <Button type="error" size="large" long>退房</Button>
+        <Button type="error" size="large" long @click="comtuifang()">退房</Button>
       </div>
     </Modal>
   </div>
 </template>
 <script>
-import { roomGet, roomGetOne, roomMP, roomR } from "@/network/user.js";
+import {
+  roomGet,
+  roomGetOne,
+  roomMP,
+  roomR,
+  roomtuifang
+} from "@/network/user.js";
 export default {
   data() {
     return {
@@ -94,7 +100,8 @@ export default {
       uuid: "",
       is_kf: true,
       is_zz: true,
-      is_ty: true
+      is_ty: true,
+      uuid: ""
     };
   },
   created() {
@@ -114,7 +121,6 @@ export default {
       }
       roomGetOne(id).then(res => {
         if (res.status === 200) {
-          console.log(res);
           that.roomMsg = res.data;
           that.chakan = true;
         }
@@ -128,14 +134,29 @@ export default {
       this.uuid = id;
       this.xuzu = true;
     },
-    clicktuifang() {
+    clicktuifang(uuid) {
       this.tuifang = true;
+      this.uuid = uuid;
+    },
+    comtuifang() {
+      if (!this.uuid) {
+        this.$Message.error("uuid不能为空");
+        return;
+      }
+      roomtuifang(this.uuid).then(res => {
+        if (res.status === 200) {
+          this.$Message.success("退房成功");
+          this.getAllRoom();
+        } else {
+          this.$Message.error("退房失败");
+        }
+      });
+      this.tuifang = false;
     },
     getAllRoom() {
       let that = this;
       roomGet().then(res => {
         if (res.status === 200) {
-          console.log(res);
           that.roomList = res.data;
         }
       });
@@ -192,7 +213,6 @@ export default {
       this.is_ty = checked;
     },
     checkShow(fjzt) {
-      console.log(fjzt);
       if (fjzt == "空闲") return this.is_kf;
       else if (fjzt == "在住") return this.is_zz;
       else if (fjzt == "停用") return this.is_ty;
